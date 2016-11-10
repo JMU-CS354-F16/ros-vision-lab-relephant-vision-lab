@@ -13,6 +13,7 @@ from sensor_msgs.msg import Image
 import cv2
 from cv_bridge import CvBridge, CvBridgeError
 import numpy as np
+import detect_red
 
 
 class RedNode(object):
@@ -39,7 +40,7 @@ class RedNode(object):
         cv_img = self.cv_bridge.imgmsg_to_cv2(img, "bgr8")
 
         # Do the image processing
-        red_pos = find_reddest_pixel_fast(cv_img)
+        red_pos = detect_red.find_reddest_pixel_fast(cv_img)
         cv2.circle(cv_img, red_pos, 5, (0, 255, 0), -1)
 
         # Convert the modified image back to a message.

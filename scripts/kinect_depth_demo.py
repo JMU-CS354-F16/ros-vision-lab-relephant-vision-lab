@@ -17,6 +17,7 @@ from visualization_msgs.msg import Marker
 import numpy as np
 from message_filters import ApproximateTimeSynchronizer
 import message_filters
+import detect_red
 
 
 
@@ -76,7 +77,7 @@ class RedDepthNode(object):
         cv_img = self.cv_bridge.imgmsg_to_cv2(img, "bgr8")
 
         # Do the image processing
-        red_pos = find_reddest_pixel_fast(cv_img)
+        red_pos = detect_red.find_reddest_pixel_fast(cv_img)
         cv2.circle(cv_img, red_pos, 5, (0, 255, 0), -1)
 
         # Extract just the point we want from the point cloud message
